@@ -1,4 +1,4 @@
-// Experimenting here with using a whole chunk of outside code to help me complete a task, which I haven't done before. Let me know if this isn't okay in future!
+// Experimenting here with using a whole chunk of outside code to help me complete a task, which I haven't done before. Let me know if this isn't okay in future.
 // Code from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_image_compare
 
 function initComparisons() {
