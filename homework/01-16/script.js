@@ -9,26 +9,26 @@ var svg = d3.select("#chart")
 .attr("width", w)
 .attr("height", h);
 
-// svgDoc.append("g").selectAll("circle")
-//                 .data(eval("dataArray"+dataIndex))
-//                 .enter()
-//                 .append("circle")
-//                 .attr("cx",function(d,i){
-//                     var spacing = lineLength/(eval("dataArray"+dataIndex).length);
-//                     return xBuffer+(i*spacing)
-//                 })
-//                 .attr("cy",yBuffer)
-//                 .attr("r",function(d,i){return d});
+// Need some sort of domain/range dealio to make the static circle be proportional to the dynamic one.
+
+// color picker function, teal if > last, dark teal if = last, hot pink if < last
 
 
+var data = 120; // Data value, "# of pageviews"
 
 //Append the static baseline circle
 svg.append("g")
     .append("circle")
     .attr("cx", w/2)
     .attr("cy", h/2)
-    .attr("r", w/3)
+    .attr("r", w/5)
     .style("fill", "none")
     .style("stroke-width", "3px")
-    .style("stroke", "black");
+    .style("stroke", "black")
+    .append("text", "100 visitors");
+
+// Append the dynamic circle
+
+
+// 
 

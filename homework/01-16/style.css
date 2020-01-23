@@ -1,25 +1,30 @@
-* {
-  box-sizing: border-box;
+
+html, body {
+	height: 100%;
 }
 
 #container {
-  display:flex;
-  /* height: 100%;  why is this not making the container extend the full height? */
-  height: 600px;
+	min-height:100%; 
+	display: flex;
+	flex-direction: row;
 }
 
 #sidebar {
-  flex: 0 0 25%;
-  margin-left:5%;
+	width: 25%;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
 }
 
+
 #content {
- margin-top:110%;
- /* Think this is going as 110% of itself, not of its parent element. */
+	box-sizing: border-box;
+	padding: 20% 5% 30% 5%;
+	width: 100%;
 }
 
 #chart {
-  flex:1;
+	flex: 1;
 }
 
 h1 {
@@ -37,7 +42,7 @@ h2 {
   color:#BDB8B0;
   font-size:18pt;
 }
-  
+
 p {
   margin: 0;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
@@ -55,4 +60,3 @@ a {
 a:hover{
   text-decoration:underline;
 }
-
