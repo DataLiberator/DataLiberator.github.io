@@ -1,12 +1,110 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="./style/style.css">
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-    </head>
-    <body>
-        <div id="chart"></div>
-        <script src="./script.js"></script>
-    </body>
-</html>
 
+<head>
+  <link rel="stylesheet" type="text/css" href="./style/style.css">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+  <svg id="chart"></svg>
+
+  <script>
+
+    var realtimeURL = "https://whiteboard.datawheel.us/api/google-analytics/realtime/random";
+    var frequency = 2 * 1000; // every 2 seconds
+
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    var svg = d3.select("#chart")
+      .attr("width", width)
+      .attr("height", height);
+
+    function fetchData() {
+
+      d3.json(realtimeURL, function (error, users) {
+
+      });
+
+    }
+
+    fetchData();
+    setInterval(fetchData, frequency);
+
+    var dataMax = 5;
+    var data = [];
+
+    var barWidth = width / dataMax;
+
+    var x = d3.scaleLinear()
+      .domain([dataMax, 1])
+      .range([0, width-barWidth]);
+    
+
+    function fetchData() {
+
+      d3.json(realtimeURL, function (error, users) {
+
+        var dataObject = {
+          users:users,
+          timestamp: new Date()
+        };
+
+        data.unshift(dataObject);
+        if (data.length > dataMax) data.pop(); //If data length becomes longer than the dataMax we set, it'll eject the last thing.
+        console.log(data);
+
+        max = d3.max(data, function(d){
+          return d.users;
+        })
+
+        var barHeight = d3.scaleLinear()
+          .domain([0, max])
+          .range([0, height]);
+
+          // Enter
+
+        var bars = svg.selectAll(".bar")
+          .data(data, function(d) {
+            return d.timestamp;
+          });
+
+          var enter = bars.enter().append("rect")
+            .attr("class", "bar")
+            .attr("width", barWidth)
+            .attr("x", function(d, i) {
+              return x(i + 1);
+            })
+            .attr("height", 0)
+            .attr("y", height);
+
+          // Update
+
+          bars.merge(enter)
+            .transition()
+            .duration(frequency / 2)
+            .attr("x", function(d, i) {
+              return x(i + 1);
+            })
+            .attr("height", function(d){
+              return barHeight(d.users);
+            })
+            .attr("y", function(d, i) {
+              var h = barHeight(d.users);
+              return height - h;
+            });
+
+          // Exit
+          bars.exit()
+            .transition().duration(frequency/2)
+            .attr("height", 0)
+            .attr("y", height)
+            .remove();
+        });
+
+    }
+  </script>
+</body>
+</html>

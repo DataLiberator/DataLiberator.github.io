@@ -1,5 +1,7 @@
+
+
 html, body {
-	height: 100%;
+  height: 100%;
 }
 
 #container {
@@ -62,6 +64,7 @@ img {
   position:absolute;
 }
 
+
 h1 {
   margin:0;
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -78,8 +81,7 @@ h2 {
   font-size:18pt;
 }
 
-p {
-  margin: 0;
+#text a {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
   width: 100%;
   text-align:left;
@@ -87,9 +89,12 @@ p {
   color:black;
 }
 
+/* Unsure why the "#text a" section isn't working. */
+
 a {
   text-decoration: none;
   color: grey;
+  font-family:"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 a:hover{
