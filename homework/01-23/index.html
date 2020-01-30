@@ -9,6 +9,9 @@
 <body>
 
   <svg id="chart"></svg>
+  <div id="footer">
+    <h1>Visitors to (Imaginary!) Website per Two Seconds</h1>
+  </div>
 
   <script>
 
@@ -17,6 +20,7 @@
 
     var width = window.innerWidth;
     var height = window.innerHeight;
+
 
     var svg = d3.select("#chart")
       .attr("width", width)
@@ -41,20 +45,39 @@
     var x = d3.scaleLinear()
       .domain([dataMax, 1])
       .range([0, width-barWidth]);
-    
+
 
     function fetchData() {
 
       d3.json(realtimeURL, function (error, users) {
 
+        // filling data variable
+
         var dataObject = {
           users:users,
-          timestamp: new Date()
+          timestamp: new Date(),
+          color: barColor(data)
         };
+        
 
         data.unshift(dataObject);
         if (data.length > dataMax) data.pop(); //If data length becomes longer than the dataMax we set, it'll eject the last thing.
         console.log(data);
+
+        //------color picking function-------------------
+
+        // Navy: 041F3D
+        // Teal: 479DA3
+        // Coral: EF907A
+
+        function barColor(data){
+          if(data.length <= 1 ){return "#479DA3"} //teal
+          else if(data[0].users > data[1].users ){return "#479DA3"} //teal
+          else if(data[0].users == data[1].users ){return "EF907A"} // coral
+          else if (data[0].users < data[1].users ) {return "#041F3D"} //coral
+        };
+
+        //-------------------------
 
         max = d3.max(data, function(d){
           return d.users;
@@ -64,7 +87,7 @@
           .domain([0, max])
           .range([0, height]);
 
-          // Enter
+        // Enter
 
         var bars = svg.selectAll(".bar")
           .data(data, function(d) {
@@ -78,7 +101,11 @@
               return x(i + 1);
             })
             .attr("height", 0)
-            .attr("y", height);
+            .attr("y", height)
+            // .style("fill", barColor(data))
+            .style("fill", function(d, i) { return d.color} )
+            .style("stroke-width", "2px")
+            .style("stroke", "white");
 
           // Update
 
@@ -94,7 +121,11 @@
             .attr("y", function(d, i) {
               var h = barHeight(d.users);
               return height - h;
-            });
+            })
+            // .style("fill", barColor(data))
+            .style("fill", function(d, i) { return d.color} )
+            .style("stroke-width", "2px")
+            .style("stroke", "white");
 
           // Exit
           bars.exit()
