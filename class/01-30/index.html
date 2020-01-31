@@ -1,12 +1,115 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="./style/style.css">
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-    </head>
-    <body>
-        <div id="chart"></div>
-        <script src="./script.js"></script>
-    </body>
-</html>
 
+<head>
+    <link rel="stylesheet" type="text/css" href="./style/style.css">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        .box {
+            fill: transparent;
+            stroke: red;
+            stroke-width: 2px;
+        }
+
+        tspan {
+            baseline-shift: -100%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <svg id="chart" width="100%" height="100vh"></svg>
+
+    <script>
+        var data1 = [
+            "People of Earth",
+            "We are your new overlords",
+            "Welcome us with open arms"
+        ]
+
+        var data2 = [
+            "We come bearing treats"
+        ]
+
+        var data3 = [
+            "The treats are of many curious varieties which you will love to consume into your funny human bodies."
+        ]
+
+
+        var columnWidth = 100
+
+        var svg = d3.select("#chart");
+
+        function drawBoxes(iceCream) {
+
+            // code that draws the boxes
+
+            var boxes = svg.selectAll(".box")
+                .data(iceCream);
+
+            boxes.enter().append("rect")
+                .attr("class", "box")
+                .attr("x", function (datum, index) {
+                    return index * columnWidth;
+                })
+                .attr("y", 0)
+                .attr("width", columnWidth)
+                .attr("height", 200);
+
+            boxes.exit().remove();
+
+            // code that draws the labels
+            var labels = svg.selectAll(".label")
+                .data(iceCream);
+
+            var fontSize = 20;
+
+            var enterLabels = labels.enter().append("text")
+                .attr("class", "label")
+                .attr("font-size", fontSize)
+                .attr("y", 0)
+                .attr("x", function (d, i) {
+                    return i * columnWidth;
+                })
+                .attr("width", columnWidth)
+                .attr("height", 200);
+
+            labels.merge(enterLabels)
+                .each(function (d,i) {
+                    var textElement = d3.select(this);
+                    textElement.text("");
+
+                    var words = d.split(" ")
+                    var tspan = textElement.append("tspan");
+                    var line = 0;
+
+                    words.forEach(function (word) {
+                        var text = tspan.text()
+                        tspan.text(text + " " + word);
+
+                        var domElement = tspan.node();
+                        var tspanWidth = domElement.getBoundingClientRect().width;
+
+                        if (tspanWidth > columnWidth) {
+                            line++;
+                            tspan.text(text);
+                            tspan = textElement.append("tspan")
+                                .attr("y", line * fontSize)
+                                .attr("x", columnWidth * i)
+                                .text(word);
+                        };
+                    });
+                });
+
+            labels.exit().remove();
+
+            };
+
+        drawBoxes(data1);
+
+
+    </script>
+</body>
+
+</html>

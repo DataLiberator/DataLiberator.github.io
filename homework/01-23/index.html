@@ -51,26 +51,9 @@
 
       d3.json(realtimeURL, function (error, users) {
 
-        // filling data variable
+//------color picking function-------------------
 
-        var dataObject = {
-          users:users,
-          timestamp: new Date(),
-          color: barColor(data)
-        };
-        
-
-        data.unshift(dataObject);
-        if (data.length > dataMax) data.pop(); //If data length becomes longer than the dataMax we set, it'll eject the last thing.
-        console.log(data);
-
-        //------color picking function-------------------
-
-        // Navy: 041F3D
-        // Teal: 479DA3
-        // Coral: EF907A
-
-        function barColor(data){
+        function barColor(){
           if(data.length <= 1 ){return "#479DA3"} //teal
           else if(data[0].users > data[1].users ){return "#479DA3"} //teal
           else if(data[0].users == data[1].users ){return "EF907A"} // coral
@@ -78,6 +61,23 @@
         };
 
         //-------------------------
+
+        // filling data variable
+
+        var dataObject = {
+          users:users,
+          timestamp: new Date(),
+          // color: barColor(data)
+        };
+        
+
+        data.unshift(dataObject);
+        if (data.length > dataMax) data.pop(); //If data length becomes longer than the dataMax we set, it'll eject the last thing.
+        // console.log(data);
+        console.log(dataObject);
+        dataObject.color = barColor();
+        console.log(data);
+
 
         max = d3.max(data, function(d){
           return d.users;
