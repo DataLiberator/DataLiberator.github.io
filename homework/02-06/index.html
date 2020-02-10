@@ -5,15 +5,19 @@
         <script src="https://d3js.org/d3.v4.min.js"></script>
     </head>
     <body>
-        <!---------- STAR STUFF (Source: https://codepen.io/gkey/pen/wYQVxX)------------------>
-        <svg id="svgCanvas" viewbox="0 0 2000 1000" preserveaspectratio="xMinYMin slice" width="100%"  >
-            <g id="starGroup"></g>
-            
-            <g transform="translate(150, 150)">
-                <circle class='shooting-star' fill='white' cx="0" cy="0" r="2" radius="125" ></circle>
-            </g>
-            </svg>
-        <!---------- END STAR STUFF (Source: https://codepen.io/gkey/pen/wYQVxX)------------------>
+        <!---------- STAR STUFF (Source: https://www.script-tutorials.com/night-sky-with-twinkling-stars/)------------------>
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <!---------- END STAR STUFF (Source: https://www.script-tutorials.com/night-sky-with-twinkling-stars/)------------------>
+        <div class="text">
+                <h1>YOUR BIRTHDAY ASTROIDS</h1>
+                <p>Greetings, Earthling–<br><br>Enter your birthday (MM-DD-YYYY) to see all the astroids NASA recorded that day.</p>
+                
+        <form class="input" action="../../form-result.php" method="post" target="_blank">
+            <p>DATE OF BIRTH:<br><br> <input type="date" name="birthday"> <br><br> <input type="submit" value="See Astroids"></p>
+        
+        </form>
+        </div>
         <div id="chart"></div>
         <script src="./script.js"></script>
     </body>

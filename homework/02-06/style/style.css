@@ -1,88 +1,80 @@
-
-/* -------- START: STAR STUFF (Source: https://codepen.io/gkey/pen/wYQVxX)----------------*/
-.star {
-  fill: white;
-  animation: pulse var(--star-animation-duration, 1000ms) infinite backwards,
-    glowing var(--star-animation-glow-duration, 1000ms) infinite alternate backwards;
-  animation-delay: var(--star-animation-delay, 0);
+#chart{
+  position:absolute;
+  margin-left:40%;
+  margin-top:5vh;
+  background-color:navy;
+  z-index:4;
+  width:50%;
+  height:80vh;
+}
+.input{
+  font-family: Arial, Helvetica, sans-serif;
+  color:red;
+}
+.text {
+  position:absolute;
+  font-family: "Courier New", Courier, monospace;
+  color:white;
+  margin-top:2vh;
+  margin-left: 5vh;
+  width:30%;
+  z-index:3;
 }
 
-.star-parallax {
-  transform: translate(0, calc(-1px * var(--translateScrollY) * var(--parallax-intensity, 200) * 1/var(--parallax-depth, 1) ));
-transition: transform .1s;
-will-change: transition;
+h1 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 45px;
+  width:30%;
+  letter-spacing: 0.1em;
+  font-weight:lighter;
 }
 
-.shooting-star {
-  fill: white;
-  transform-origin: 125px 0;
-  animation: 5s orbitAnimation infinite linear, 5s shootStarGlow infinite;
+p{
+  margin-top:5px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  /* font-weight:lighter; */
 }
 
-#svgCanvas {
-  height: 200vh;
+/* -------- START: STAR STUFF (Source: https://www.script-tutorials.com/night-sky-with-twinkling-stars/)----------------*/
+@keyframes move-twink-back {
+  from {background-position:0 0;}
+  to {background-position:-10000px 5000px;}
 }
-
-
-body {
-  margin: 0;
-  background-color: #202840;
+@-webkit-keyframes move-twink-back {
+  from {background-position:0 0;}
+  to {background-position:-10000px 5000px;}
 }
-
-#btnDebug {
-  position: fixed;
-  z-index:1;
-  top: 10px;
-  left: 10px;
+@-moz-keyframes move-twink-back {
+  from {background-position:0 0;}
+  to {background-position:-10000px 5000px;}
 }
-
-@keyframes pulse {
-  0% {
-    transform: scale3d(1, 1, 1);
-  }
-
-  30% {
-    transform: scale3d(1.2, 1.2, 1.2);
-  }
-
-  70% {
-    transform: scale3d(0.2, 0.2, 0.2);
-  }
-
-  100% {
-    transform: scale3d(1, 1, 1);
-  }
+@-ms-keyframes move-twink-back {
+  from {background-position:0 0;}
+  to {background-position:-10000px 5000px;}
 }
-
-@keyframes glowing {
-  0% {
-    opacity: var(--star-brightness, 1);
-  }
-
-  100% {
-    opacity: calc(var(--star-brightness, 1) * 0.5);
-  }
+.stars, .twinkling {
+position:absolute;
+top:0;
+left:0;
+right:0;
+bottom:0;
+width:100%;
+height:100%;
+display:block;
 }
-
-@keyframes orbitAnimation {
-  0% {
-    transform: translate(-125px, 0) rotate3d(0, 0, 1, 360deg);
-  }
-  100% {
-    transform: translate(-125px, 0) rotate3d(0, 0, 1, 270deg);
-  }
+.stars {
+background:#000 url(/homework/02-06/images/stars.png) repeat top center;
+z-index:0;
+opacity:1;
 }
-
-
-@keyframes shootStarGlow {
-  0% {
-    opacity: 0
-  }
-
-  50%, 50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
+.twinkling{
+background:transparent url(/homework/02-06/images/twinkling.png) repeat top center;
+z-index:1;
+-moz-animation:move-twink-back 300s linear infinite;
+-ms-animation:move-twink-back 300s linear infinite;
+-o-animation:move-twink-back 300s linear infinite;
+-webkit-animation:move-twink-back 300s linear infinite;
+animation:move-twink-back 300s linear infinite;
+} 
