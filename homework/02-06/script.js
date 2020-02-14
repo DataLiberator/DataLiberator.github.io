@@ -5,36 +5,84 @@ var margin = {top: 20, right: 75, bottom: 50, left: 75};
 var chartWidth = width - margin.left - margin.right;
 var chartHeight = height - margin.top - margin.bottom;
 
+// var parseDate = d3.timeParse("%d-%b-%y"); This stuff is returning null when I put it in front of date + time in the asteroidsObject
+// var parseTime = d3.timeParse("%H-%M");
+
+var svg = d3.select("#chart")
+    .attr("width", width)
+    .attr("height", height)
+    
 //NASA Astroid API, found on this website:https://api.nasa.gov/
 var realtimeURL = 'https://api.nasa.gov/neo/rest/v1/feed?start_date=1993-07-31&end_date=1993-07-31&api_key=LBPa28DapgpXxWTBLaKb5fw8gCMzk7PCzt2cUaXv'; //currently the hard-coded date of my birthday. Will make it adjustable to different birthdays.
-var data = [];
 var birthday = '1993-07-31'; //Later: will make this variable change to be the date was last entered
+
+var dataMax = 5;
+
+var domainValues = d3.range(0, 24)
+    var x = d3.scaleBand()
+      .domain(domainValues.reverse())
+      .range([margin.left, margin.left + chartWidth])
+      .paddingInner(0.1);
+
+
+// //get the date from the dropdown
+// function onButtonPress() {
+//         var x = document.getElementById("frm1");
+//         var text = "";
+//         var i;
+//         for (i = 0; i < x.length ;i++) {
+//           text += x.elements[i].value + "<br>";
+//         }
+//         document.getElementById("demo").innerHTML = text;
+//       }
+// //create the url
+
+// //call fetchdata
+
 
 function fetchData() {
 
-    d3.json(realtimeURL, function (error, near_earth_objects) {
-       
-// filling data variable
-// I want the dataObject to contain:
-        //url: nasa_jpl_url,
-        //maxDiameter: estimated_diameter_max(feet),
-        //hazardous: is_potentially_hazardous_asteroid,
-        //dateTime: close_approach_date_full,
-        //velocity: relative_velocity.miles_per_hour
+    d3.json(realtimeURL, function (error, data) {
+        
+        // filling + printing dataArray
+        var dataArray = []
 
-     var dataObject = { // How do you link down in the structure? At this stage, how do you see the structure in the console to know what things are named?
-       url:birthday.nasa_jpl_url,
-       maxDiameter:estimated_diameter.feet.estimated_diameter_max
-     };
+        for (i = 0; i < data.near_earth_objects["1993-07-31"].length; i++) {
+            var asteroid = data.near_earth_objects["1993-07-31"][i]
 
+            var timeArray = asteroid["close_approach_data"][0]["close_approach_date_full"].split(" ")[1].split(":");
+
+            var asteroidObject = {
+                date: asteroid["close_approach_data"][0]["close_approach_date_full"],
+                time: (timeArray[0]) + ":" + (timeArray[1]),
+                maxDiameter: asteroid["estimated_diameter"]["feet"]["estimated_diameter_max"],
+                hazardous: asteroid["is_potentially_hazardous_asteroid"]
+            }
+
+            dataArray.push(asteroidObject);
+        };
+
+    console.log(dataArray);
+
+    //  // format the data
+    // dataArray.forEach(function(d) {
+    //     d.time = parseTime(d.time);
+    //     d.date = parseDate(d.date);
+    //     });
+    // console.log(dataArray);
+
+
+    // AXIS HIJINX
+  
+    //X-Axis
+    var xAxis = d3.scaleTime(x)
     
-     
-     data.unshift(dataObject); //Want the dataObject info to go into data[]... although, maybe since I'm not doing live updates it's enough to just keep it in dataObject.
-     
-     console.log(dataObject);
-     console.log(data);
-
+    svg.select("#x")
+        .append("g")
+        .attr("transform", "translate(0, " + (chartHeight + margin.top) + ")")
+        .call(xAxis);
+       
     });
-}
+};
 
 fetchData();

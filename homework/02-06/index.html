@@ -13,12 +13,16 @@
                 <h1>YOUR BIRTHDAY ASTEROIDS</h1>
                 <p>Greetings, Earthling–<br><br>Enter your birthday (MM-DD-YYYY) to see all the asteroids NASA recorded that day.</p>
                 
-        <form class="input" action="../../form-result.php" method="post" target="_blank">
+        <form id= "frm1" class="input" action="../../form-result.php" method="post" target="_blank">
             <p>DATE OF BIRTH:<br><br> <input type="date" name="birthday"> <br><br> <input type="submit" value="See Asteroids"></p>
         
         </form>
         </div>
-        <div id="chart"></div>
+        <div id="chart">
+                <g id="shapes"></g>
+                <g id="x"></g>
+                <g id="y"></g>
+        </div>
         <script src="./script.js"></script>
     </body>
 </html>
