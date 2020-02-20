@@ -48,7 +48,7 @@ function fetchData() {
 
             var asteroidObject = {
                 date: asteroid["close_approach_data"][0]["close_approach_date_full"],
-                time: (timeArray[0]) + ":" + (timeArray[1]),
+                time: (timeArray[0]) + "." + (timeArray[1]), //This is hacky and not correct. 11.42 is not the same as 11:42... but I'm just trying to get the bars to respond to actual data.
                 asteroidParsedTime: formatTime(timeArray[0]) + ":" + (timeArray[1]),
                 maxDiameter: asteroid["estimated_diameter"]["feet"]["estimated_diameter_max"],
                 hazardous: asteroid["is_potentially_hazardous_asteroid"]
@@ -64,25 +64,13 @@ function fetchData() {
         else {return "white"} 
       };
 
-    // APPEND SHAPES
-    svg.selectAll("#chart")
-    .data(dataArray)
-    .enter().append("rect")
-        .attr("class", "bar")
-        .attr("x", function(d){
-            return i ++ * 50;
-        })
-        .attr("width", "15px")
-        .attr("fill", function(d){
-            d.forEach(i = 0; i<5; i++) {
-                if (dataArray.hazardous == "true"){return "red"}
-                else {return "white"};
-            }
-        })
-        .attr("y",chartHeight-chartHeight)
-        .attr("height", chartHeight);
+      // Create a color picker function
+      function colorPicker(d) {
+            if (d.hazardous == "true"){return "red"}
+            else {return "white"};
+        };
 
-    // AXIS HIJINX
+     // AXIS HIJINX
 
     // Add X axis
     var x = d3.scaleLinear() //scaleTime not working
@@ -102,6 +90,27 @@ function fetchData() {
     // .range([ chartHeight, 0]);
     // svg.append("g")
     // .call(d3.axisLeft(y));
+
+    // APPEND SHAPES
+    svg.selectAll("#chart")
+    .data(dataArray)
+    .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d){
+            return +d.time; // Why is this not scaling on the X-axis? It's going literally 11.42 pixels etc. Would expect to stretch to chartWidth.
+        })
+        // .attr("x", function(d){  //This just gets bars to show up evenly spaced.
+        //     return i ++ * 50;
+        // })
+        .attr("width", "10px")
+        // .attr("fill", "white")
+        .attr("fill", function(d){       //Why is this not working? d.forEach gives syntax errors, returning all white, not red
+            for(i = 0; i<5; i++){
+                return colorPicker(d);
+            }  
+        })
+        .attr("y",chartHeight-chartHeight)
+        .attr("height", chartHeight);
 
     
     });
