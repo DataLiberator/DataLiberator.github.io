@@ -97,7 +97,7 @@ function fetchData() {
     .enter().append("rect")
         .attr("class", "bar")
         .attr("x", function(d){
-            return +d.time; // Why is this not scaling on the X-axis? It's going literally 11.42 pixels etc. Would expect to stretch to chartWidth.
+            return +d.time * 30; // Had to add hacky *30px. Why is time not scaling on the X-axis? It's going literally 11.42 pixels etc. Would expect to stretch to chartWidth.
         })
         // .attr("x", function(d){  //This just gets bars to show up evenly spaced.
         //     return i ++ * 50;
