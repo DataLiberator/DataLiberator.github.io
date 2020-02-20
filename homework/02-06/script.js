@@ -48,7 +48,7 @@ function fetchData() {
 
             var asteroidObject = {
                 date: asteroid["close_approach_data"][0]["close_approach_date_full"],
-                time: (timeArray[0]) + "." + (timeArray[1]), //This is hacky and not correct. 11.42 is not the same as 11:42... but I'm just trying to get the bars to respond to actual data.
+                time: (+timeArray[0]) + (+timeArray[1]/60), //This is hacky and not correct. 11.42 is not the same as 11:42... but I'm just trying to get the bars to respond to actual data.
                 asteroidParsedTime: formatTime(timeArray[0]) + ":" + (timeArray[1]),
                 maxDiameter: asteroid["estimated_diameter"]["feet"]["estimated_diameter_max"],
                 hazardous: asteroid["is_potentially_hazardous_asteroid"]
@@ -66,7 +66,7 @@ function fetchData() {
 
       // Create a color picker function
       function colorPicker(d) {
-            if (d.hazardous == "true"){return "red"}
+            if (d.hazardous == true){return "red"}
             else {return "white"};
         };
 
@@ -97,7 +97,7 @@ function fetchData() {
     .enter().append("rect")
         .attr("class", "bar")
         .attr("x", function(d){
-            return +d.time * 30; // Had to add hacky *30px. Why is time not scaling on the X-axis? It's going literally 11.42 pixels etc. Would expect to stretch to chartWidth.
+            return x(d.time) // Had to add hacky *30px. Why is time not scaling on the X-axis? It's going literally 11.42 pixels etc. Would expect to stretch to chartWidth.
         })
         // .attr("x", function(d){  //This just gets bars to show up evenly spaced.
         //     return i ++ * 50;
@@ -105,9 +105,7 @@ function fetchData() {
         .attr("width", "10px")
         // .attr("fill", "white")
         .attr("fill", function(d){       //Why is this not working? d.forEach gives syntax errors, returning all white, not red
-            for(i = 0; i<5; i++){
-                return colorPicker(d);
-            }  
+            return colorPicker(d);  
         })
         .attr("y",chartHeight-chartHeight)
         .attr("height", chartHeight);
