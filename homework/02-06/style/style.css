@@ -1,13 +1,23 @@
-#chart{
+/* .bar {
+  fill: white;
+} */
+
+
+.tick line {
+  opacity:0;
+}
+
+#chart {
   position:absolute;
   margin-left:40%;
   margin-top:5vh;
-  background-color:white;
+  opacity:100%;
+  /* background-color:red; */
   z-index:4;
   width:50%;
   height:80vh;
 }
-.input{
+.input {
   font-family: Arial, Helvetica, sans-serif;
   color:red;
 }
@@ -29,7 +39,7 @@ h1 {
   font-weight:lighter;
 }
 
-p{
+p {
   margin-top:5px;
   font-family: "Courier New", Courier, monospace;
   font-size: 18px;
