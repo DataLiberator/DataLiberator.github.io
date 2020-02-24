@@ -5,6 +5,11 @@
   opacity:0;
 }
 
+#legendText {
+  z-index:5;
+  font-weight:medium;
+  color:white;
+}
 #chart {
   position:absolute;
   margin-left:40%;
@@ -42,6 +47,7 @@ p {
   font-family: "Courier New", Courier, monospace;
   font-size: 18px;
   letter-spacing: 0.1em;
+  margin-bottom:5px;
   /* font-weight:lighter; */
 }
 
@@ -97,8 +103,8 @@ animation:move-twink-back 300s linear infinite;
 <!---------- END STAR STUFF (Source: https://www.script-tutorials.com/night-sky-with-twinkling-stars/)------------------>
 <div class="text">
         <h1>BIRTHDAY ASTEROIDS</h1>
-        <p>Greetings, Earthling–<br><br>This chart records the 24-hour time of every asteroid NASA recorded on my birthday, 07–31–1993.<br><br>Red indicates a potentially hazardous asteroid.</p>
-        <g id="legend"></g>
+        <p>Greetings, Earthling–<br><br>This chart records the 24-hour time of every asteroid NASA recorded on my birthday:<br> 07–31–1993.<br><br><u>KEY</u></p>
+        <svg id="legend"></svg>
 </form>
 </div>
 <div id="chart">
@@ -122,16 +128,47 @@ var svg = d3.select("#chart")
     .attr("height", chartHeight + margin.top + margin.bottom)
   .append("g");
 
-var legend = d3.select("#legend")
-  .append("svg")
-    .attr("class", "legendSVG")
-    .style("background-color", "cornflowerblue")
-    .style("opacity", "30%")
-    .style("position", "absolute")
-    .attr("width", divWidth)
-    .attr("height", 50);
+var legend = d3.select("#legend");
+var square = 20;
+var spacing = 30;
+var whiteHeight = 10;
+var redHeight = 50;
+var offset = 15;
 
-var legendSize = 20;
+//handmade legend hijinx (Code source: https://www.d3-graph-gallery.com/graph/custom_legend.html)
+
+legend.append("rect")
+  .attr("width", square)
+  .attr("height",square)
+  .attr("x", 0)
+  .attr("y", whiteHeight)
+  .style("fill", "white");
+
+legend.append("rect")
+  .attr("width", square)
+  .attr("height",square)
+  .attr("x", 0)
+  .attr("y", redHeight)
+  .style("fill", "red");
+
+legend.append("text")
+  .attr("id", "legendText")
+  .attr("x", spacing)
+  .attr("y", whiteHeight + offset)
+  .text("Non-Hazardous")
+  .style("fill", "white")
+  .style("font-size", "18");
+
+legend.append("text")
+  .attr("id", "legendText")
+  .attr("x", spacing)
+  .attr("y", redHeight+offset)
+  .text("Potentially Hazardous")
+  .style("fill", "white")
+  .style("font-size", "18");
+
+
+//end handmade legend stuff
 
 var barWidth = "5px";
 var barHeight = chartHeight;
@@ -184,29 +221,6 @@ function fetchData() {
             if (d.hazardous == true){return "red"}
             else {return "white"};
         };
-
-
-    // LEGEND HIJINX
-    //---------enter/update/exit rects
-  var smallerBar = d3.select("#legend")
-  .append("svg")
-    .attr("class", "legendSVG")
-    .style("background-color", "cornflowerblue")
-    .style("opacity", "30%")
-    .style("position", "absolute")
-    .attr("width", divWidth/2)
-    .attr("height", 50);
-
-  // var legendRectsEnter = legendRects.enter().append("rect");
-
-  //   legendRects.merge(legendRectsEnter)
-  //   .attr("x", 0)
-  //   .attr("y", function(d, i) {
-  //       return i * legendSize + i * 10;
-  //   })
-  //   .attr("fill", "cornflowerblue")
-  //   .attr("width", legendSize)
-  //   .attr("height", legendSize);
     
     // AXIS HIJINX
 
