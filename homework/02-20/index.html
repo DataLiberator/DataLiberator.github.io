@@ -128,14 +128,13 @@ var svg = d3.select("#chart")
     .attr("height", chartHeight + margin.top + margin.bottom)
   .append("g");
 
+//handmade legend hijinx (Code source: https://www.d3-graph-gallery.com/graph/custom_legend.html)
 var legend = d3.select("#legend");
 var square = 20;
 var spacing = 30;
 var whiteHeight = 10;
-var redHeight = 50;
+var redHeight = 45;
 var offset = 15;
-
-//handmade legend hijinx (Code source: https://www.d3-graph-gallery.com/graph/custom_legend.html)
 
 legend.append("rect")
   .attr("width", square)
