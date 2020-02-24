@@ -88,7 +88,6 @@ animation:move-twink-back 300s linear infinite;
 } 
 </style>
 <head>
-<link rel="stylesheet" type="text/css" href="./style/style.css">
 <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
 <body>
@@ -99,7 +98,7 @@ animation:move-twink-back 300s linear infinite;
 <div class="text">
         <h1>BIRTHDAY ASTEROIDS</h1>
         <p>Greetings, Earthling–<br><br>This chart records the 24-hour time of every asteroid NASA recorded on my birthday, 07–31–1993.<br><br>Red indicates a potentially hazardous asteroid.</p>
-
+        <g id="legend"></g>
 </form>
 </div>
 <div id="chart">
@@ -122,8 +121,17 @@ var svg = d3.select("#chart")
     .attr("width", chartWidth + margin.left + margin.right)
     .attr("height", chartHeight + margin.top + margin.bottom)
   .append("g");
-    // .attr("transform",
-    //       "translate(" + margin.left + "," + margin.top + ")");
+
+var legend = d3.select("#legend")
+  .append("svg")
+    .attr("class", "legendSVG")
+    .style("background-color", "cornflowerblue")
+    .style("opacity", "30%")
+    .style("position", "absolute")
+    .attr("width", divWidth)
+    .attr("height", 50);
+
+var legendSize = 20;
 
 var barWidth = "5px";
 var barHeight = chartHeight;
@@ -177,7 +185,30 @@ function fetchData() {
             else {return "white"};
         };
 
-     // AXIS HIJINX
+
+    // LEGEND HIJINX
+    //---------enter/update/exit rects
+  var smallerBar = d3.select("#legend")
+  .append("svg")
+    .attr("class", "legendSVG")
+    .style("background-color", "cornflowerblue")
+    .style("opacity", "30%")
+    .style("position", "absolute")
+    .attr("width", divWidth/2)
+    .attr("height", 50);
+
+  // var legendRectsEnter = legendRects.enter().append("rect");
+
+  //   legendRects.merge(legendRectsEnter)
+  //   .attr("x", 0)
+  //   .attr("y", function(d, i) {
+  //       return i * legendSize + i * 10;
+  //   })
+  //   .attr("fill", "cornflowerblue")
+  //   .attr("width", legendSize)
+  //   .attr("height", legendSize);
+    
+    // AXIS HIJINX
 
     // Add X axis
     var x = d3.scaleLinear() //scaleTime not working

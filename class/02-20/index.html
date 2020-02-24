@@ -106,15 +106,15 @@ var legendData = data.map(function(d) {
         return d.users;
         });
 
-    legendData = legendData
-        .filter(function(d, i) {
-            return legendData.indexOf(d) === i;
-        })
-        .sort(function(a, b) {
-            return a - b;
-        });
+legendData = legendData
+    .filter(function(d, i) {
+        return legendData.indexOf(d) === i;
+    })
+    .sort(function(a, b) {
+        return a - b;
+    });
 
-        console.log(legendData);
+    console.log(legendData);
 
 scale.select("#scaleRect")
     .attr("width", scaleWidth)
