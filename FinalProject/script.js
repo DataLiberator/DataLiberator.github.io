@@ -1,7 +1,8 @@
 
-d3.csv("./data/Artworks2017Data.csv", function(artworksData){
+d3.csv("./data/Artworks80YrData.csv", function(artworksData){
+
     
-console.log(artworksData);
+// console.log(artworksData);
 
 });
 

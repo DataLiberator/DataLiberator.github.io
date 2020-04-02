@@ -6,8 +6,8 @@
     <script src="https://unpkg.com/intersection-observer"></script>
     <script src="https://unpkg.com/scrollama"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Scrollama: Sticky Side Example</title>
-    <meta name="description" content="Scrollama: Sticky Side Example" />
+    <title>A MoMA in Time: 2017 Acquisition Data</title>
+    <meta name="description" content="A MoMA in Time: 2017 Acquisition Data" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -16,12 +16,14 @@
   <main>
       <section id="intro">
         <div class="header_picture">
-        <img src="./images/MOMAphoto.jpg" alt="MOMA entrance NYC">     
+        <img src="./images/AMoMAInTime.png" alt="A MoMA in Time header, data visualization of 2017">     
         </div>
-        <!-- <h1 class="intro__hed">Yo' MOMA</h1>
-        <p class="intro__dek">
-          I have a bunch of data about the MOMA collections in 2017. Let's look at it.
-        </p> -->
+
+        <div class = "description">
+            <p> In 1929, <a href="https://www.moma.org/momaorg/shared/pdfs/docs/press_archives/10/releases/MOMA_1929-31_0010_1929-09-06.pdf"> an article </a>in the New York Times announced the opening of the city's new Museum of Modern Art. "Experience has shown", stated the article, "that the best way of giving to modern art a fair presentation is to establish a gallery devoted frankly to the works of artists who most truly reflect the taste, feeling and tendencies of the day."
+            <br> Blah blah
+            </p>
+        </div>
       </section>
 
       <section id="scrolly">
@@ -48,82 +50,13 @@
       <section id="outro"></section>
     </main>
 
-    <!-- <div class='debug'></div> -->
+    <div class='debug'></div>
     <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
     <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
     <script src="../stickyfill.min.js"></script>
     <script src="../scrollama.min.js"></script>
-    <script>
-      // using d3 for convenience
-      var main = d3.select("main");
-      var scrolly = main.select("#scrolly");
-      var figure = scrolly.select("figure");
-      var article = scrolly.select("article");
-      var step = article.selectAll(".step");
-
-      // initialize the scrollama
-      var scroller = scrollama();
-
-      // generic window resize listener event
-      function handleResize() {
-        // 1. update height of step elements
-        var stepH = Math.floor(window.innerHeight * 0.75);
-        step.style("height", stepH + "px");
-
-        var figureHeight = window.innerHeight / 2;
-        var figureMarginTop = (window.innerHeight - figureHeight) / 2;
-
-        figure
-          .style("height", figureHeight + "px")
-          .style("top", figureMarginTop + "px");
-
-        // 3. tell scrollama to update new element dimensions
-        scroller.resize();
-      }
-
-      // scrollama event handlers
-      function handleStepEnter(response) {
-        // response = { element, direction, index }
-
-        // add color to current step only
-        step.classed("is-active", function(d, i) {
-          return i === response.index;
-        });
-
-        // update graphic based on step
-        figure.select("p").text(response.index + 1);
-      }
-
-      function setupStickyfill() {
-        d3.selectAll(".sticky").each(function() {
-          Stickyfill.add(this);
-        });
-      }
-
-      function init() {
-        setupStickyfill();
-
-        // 1. force a resize on load to ensure proper dimensions are sent to scrollama
-        handleResize();
-
-        // 2. setup the scroller passing options
-        // 		this will also initialize trigger observations
-        // 3. bind scrollama event handlers (this can be chained like below)
-        scroller
-          .setup({
-            step: "#scrolly article .step",
-            offset: 0.33,
-            debug: true
-          })
-          .onStepEnter(handleStepEnter);
-
-        // setup resize event
-        window.addEventListener("resize", handleResize);
-      }
-
-      // kick things off
-      init();
-    </script>
+    
     <script src = "script.js"></script>
+    <script src = "scrollyscript.js"></script>
   </body>
 </html>
