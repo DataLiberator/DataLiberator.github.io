@@ -32,9 +32,10 @@ a {
 a,
 a:visited,
 a:hover {
-  color: teal;
   text-decoration: none;
   border-bottom: 2px solid currentColor;
+  color: black;
+  
 }
 
 #intro {
@@ -52,8 +53,10 @@ img {
 }
 
 
+
 #intro {
-  margin-bottom: 300px;
+  margin-bottom: 50px;
+  line-height: 1.7;
 }
 
 .description {
@@ -62,15 +65,16 @@ img {
   margin-right: 15%;
 }
 
-#outro {
-  height: 10px;
+
+.pull_quote {
+  color: black;
+  background:#f3f3f3;
+  font-size: 24;
+  font-family: 'Courier New', Courier, monospace;
 }
 
-@media (min-width: 840px) {
-  .nav__examples {
-    margin-top: 0;
-    margin-left: 2rem;
-  }
+#outro {
+  height: 10px;
 }
 
 #scrolly {
@@ -91,7 +95,7 @@ img {
 article {
   position: relative;
   padding: 0 1rem;
-  max-width: 20rem;
+  max-width: 30rem;
 }
 
 figure {
@@ -136,7 +140,7 @@ figure p {
 }
 
 .step p {
-  text-align: center;
-  padding: 1rem;
+  text-align: left;
+  padding: 3rem;
   font-size: 1.5rem;
 }
