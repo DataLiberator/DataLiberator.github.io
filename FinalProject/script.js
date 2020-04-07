@@ -6,7 +6,7 @@
   };
     
     
-    console.log(data.);
+    console.log(data);
 
     // console.log(data.DateAcquired); //OK, at least this did something. Lists all dates and how many things were acquired on those dates
 
