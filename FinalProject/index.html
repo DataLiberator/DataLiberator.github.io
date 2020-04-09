@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Scrollytelling code from Scrollaama.js documentation: https://github.com/russellgoldenberg/scrollama#scrollamajs -->
     <meta charset="utf-8" />
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://unpkg.com/intersection-observer"></script>
-    <script src="https://unpkg.com/scrollama"></script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel='icon' href='./images/slantfavicon.ico' type='image/x-icon'/ >
     <title>A MoMA in Time: 2017 Acquisition Data</title>
     <meta name="description" content="A MoMA in Time: 2017 Acquisition Data" />
@@ -30,55 +26,11 @@
                 "Experience has shown that the best way of giving to modern art a fair presentation is to establish a gallery devoted frankly to the works of artists who most truly reflect the taste, feeling and tendencies of the day."
                 </div>  
             <br>
-            Has the MoMA achieved this goal? Do its acquisitions demonstrate a search for diverse and culturally representative art? This project uses <a href= "https://data.world/moma/collection"> MoMA collections data</a> to explore those questions, comparing the museum's acquisition choices in 1937 to behaviors in 2017, eighty years later.
+            This project uses <a href= "https://data.world/moma/collection"> MoMA collections data</a> to explore the acquisition habits of the museum, comparing its acquisition choices in 1937 to behaviors in 2017, eighty years later.
             </p>
         </div>
       </section>
-
-      <section id="scrolly">
-        <article>
-          <div class="step" data-step="1">
-            <p>In 1937, the MoMA acquired [X] items.
-                <br>
-                <br>
-                In 2017, it acquired [X] items.
-                <br>
-                <br>
-                (That's an increase of X%.)
-            </p>
-          </div>
-          <div class="step" data-step="2">
-            <P>What artist nationalities are represented in each year's acquisitions?<br> <br>In 1937, the MoMA acquired pieces from artists of X different countries. In 2017, they acquired pieces from X different countries... an X% increase(?). <br> <br>The MoMA's collections are expanding to reflect a world that is becoming more interconnected.</P>
-          </div>
-          <div class="step" data-step="3">
-            <p>How about gender representation? Modern art is often collaborative, involving the talents of multiple artists. But how many of the acquired artworks involved at least one artist identifying as female?
-              <br>
-              <br> In 1937, X% of the acquisitions had at least one female artist.
-              <br>
-              <br> In 2017, women artists were still only represented in X% acquisitions. 
-              Woahhhhh...
-           </p>
-          </div>
-        </article>
-
-        <figure>
-          <p>0</p>
-        </figure>
-      </section>
-
-      <section id="outro">
-        <div class = "conclusion">
-          <p>  Words words words
-          </p>
-      </div>
-      </section>
-    </main>
-
-    <div class='debug'></div>
-    <!-- <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script> -->
-    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
-
+    <section id = "chart"></div>
     <script src = "script.js"></script>
-    <script src = "scrollyscript.js"></script>
   </body>
 </html>
