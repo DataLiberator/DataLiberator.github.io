@@ -15,11 +15,11 @@
     .attr("height", height)
     .style("background-color", "#F5F5F5");
 
-    // Color picker
-    function colorPicker(d){
-        if (d.date.getFullYear() === "1937") { return "#000000"}
-        else {return "#cc0000"};
-    };
+    // // Color picker
+    // function colorPicker(d){
+    //     if (d.year == "1937") { return "#000000"}
+    //     else {return "#cc0000"};
+    // };
 
     var lineData = d3.nest()
         .key(function(d){
@@ -31,9 +31,21 @@
     lineData.forEach(function(d){ // looping through nested array of just date acquired
         d.totalPieces = d.values.length;
         d.date = new Date(d.key)
+        d.year = d.date.getFullYear();
     });
 
     console.log(lineData);
+
+ // Split by Year
+ var data1937 = lineData.filter(function(d){
+     return d.year == 1937;
+    });
+var data2017 = lineData.filter(function(d){
+        return d.year == 2017;
+    });
+
+
+    console.log(data1937);
 
     var maxPieces = d3.max(lineData, function(d){ return d.totalPieces; })
     var minPieces = d3.min(lineData, function(d){ return d.totalPieces; })
@@ -55,40 +67,25 @@ var yScale = d3.scaleLinear()
 .curve(d3.curveLinear);
 
 // Append Paths and Lines
-lineData.forEach( function(d){
-
-    console.log(d);
-
-    svg.append("path")
-    .data([lineData])
+lineData.forEach(function(d){
+     svg.append("path")
+    .data([data1937])
     .attr("class", "line")
     .attr("d", line)
     .style("fill", "none")
     .style("stroke-width", "3")
     .style("stroke", "black");
-  
-// var thisYear = lineData.filter(function(v) {
-//    return v.name === d;
-//    }).sort(function(a,b) { return a.year - b.year; });
-
-//    svg.append("path")
-//      .datum(thisYear)
-//      .attr("d", function(v){ return line(v); })
-//      .attr("stroke", function(){ return colorPicker(d);})
-//      .attr("fill", "none")
-//      .attr("stroke-width", 3);
-   
-//    svg.selectAll("circle")
-//      .data(thisYear)
-//      .enter()
-//      .append("circle")
-//        .attr("cx", function(v) { return xScale(v.month); })
-//        .attr("cy", function(v) { return yScale(v.acquisitions); })
-//        .attr("r",2)
-//        .attr("fill", function (){ return colorPicker(d)})
-//        .attr("stroke-width",2);
-   
 });
+
+lineData.forEach( function(d){
+        svg.append("path")
+        .data([data2017])
+        .attr("class", "line")
+        .attr("d", line)
+        .style("fill", "none")
+        .style("stroke-width", "3")
+        .style("stroke", "#cc0000");
+    });
 
 // axes
 var xAxis = svg.append("g")
@@ -116,6 +113,3 @@ var xAxisLabel = svg.append("text")
  // enter/exit/update
 
 });
-
-
-
