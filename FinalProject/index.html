@@ -12,7 +12,7 @@
 
   <body>
   <main>
-      <section id="intro">
+      <div id="intro">
         <div class="header_picture">
         <img src="./images/AMoMAInTime.png" alt="A MoMA in Time header, data visualization of 2017">     
         </div>
@@ -29,20 +29,14 @@
             This chart uses <a href= "https://data.world/moma/collection"> MoMA collections data</a> to explore the acquisition habits of the museum, comparing its acquisition choices in 1937 to behaviors in 2017, eighty years later.
             </p>
         </div>
-      </section>
-      <section id = "chart">
-        <div id="tooltip" class="hidden">
-          <p><strong>Percentage Value</strong></p>
-          <p><span id="value">100</span>%</p>
-        </div>
-      </section>
-      <section id = "conclusion">
+      </div>
+      <div id = "chart">
+        <svg id="legend"></svg>
+      </div>
+      <div id = "conclusion">
         <div id = conclusionText>
         <p> Conclusion text will go here! Still to do: 
-          <ul>• Months on bottom (%b, short month format), months not repeating</ul>
-          <ul>• Prettify Y-axis</ul>
-          <ul>• Key to show red = 2017, black = 1937</ul>
-          <ul>• Fix enter pattern so don't have to do twice, filters and colors lines by year and doesn't connect the lines</ul>
+          <ul>• Add small circles so can do tool tip</ul>
           <ul>• What to do for missing data? Way to make it look like <a href= https://observablehq.com/@d3/line-with-missing-data>this example</a>?</ul>
           <ul>• Tooltip showing Month, Year: # Acquisitions
             <ul>– Highlight specific year similar to <a href= https://observablehq.com/@d3/multi-line-chart>this example</a>?</ul>
@@ -51,7 +45,7 @@
           <ul>• Write conclusion paragraph</ul>
         </p>
         </div>
-      </section>
+      </div>
     </main>
   <script src = "script.js"></script>
   </body>
