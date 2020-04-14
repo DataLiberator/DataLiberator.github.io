@@ -5,7 +5,7 @@
 
     // var width = document.querySelector("#chart").clientWidth;
     // var height = document.querySelector("#chart").clientHeight;
-    var width = document.querySelector("#chart").clientWidth;
+    var width = document.querySelector("#chart").clientWidth*.75;
     var height = 0.5*(width);
     var margin = {top: 50, left: 175, right: 200, bottom: 75};
 
@@ -21,7 +21,7 @@
 
     // Color picker
     function colorPicker(d){
-        console.log(d[0].year);
+        // console.log(d[0].year);
 
         if (d[0].year == "1937") { return "#000000"}
         else {return "#cc0000"};
@@ -92,7 +92,7 @@ svg.selectAll(".line")
         .style("stroke-width", "3")
         .style("stroke", colorPicker);
 
-//Add dots and tooltip to chart
+//Add data point dots to chart
 //Inspired by: https://bl.ocks.org/wnghdcjfe/6377d75c963e8f841609a7bf6d3d0c74
 var dot = svg.selectAll("dot")
                 .data(lineData)
@@ -104,15 +104,9 @@ dot.attr("cx", function (d) {
 })
 .attr("cy", function (d) {
     return yScale(d.totalPieces);
-})
-.on("mouseover", function (d) {
-    div.transition()
-        .duration(100)
-        .style("opacity", .9);
-    div.html("<p> Acquisitons in " + month + ": </p> <p>" + d.totalPieces + "</p>")
-        .style("left", (d3.event.pageX) + "px")
-        .style("top", (d3.event.pageY - 28) + "px");
 });
+
+// Tooltip
 
 
 // axes
@@ -147,28 +141,28 @@ var chartTitle = svg.append("text")
         .text("MoMA Acquisitions per Month");
 
 //handmade legend hijinx (Code source: https://www.d3-graph-gallery.com/graph/custom_legend.html)
-var legend = d3.select("#legend");
 var square = 15;
-var spacing = 30;
-var whiteHeight = 10;
-var redHeight = 45;
+var spacing = width - 80;
+var boxSpacing = spacing - 30;
+var whiteHeight = 235;
+var redHeight = 200;
 var offset = 13;
 
-legend.append("rect")
+svg.append("rect")
   .attr("width", square)
   .attr("height",square)
-  .attr("x", 0)
+  .attr("x", boxSpacing)
   .attr("y", whiteHeight)
   .style("fill", "black");
 
-legend.append("rect")
+svg.append("rect")
   .attr("width", square)
   .attr("height",square)
-  .attr("x", 0)
+  .attr("x", boxSpacing)
   .attr("y", redHeight)
   .style("fill", "#CC0000");
 
-legend.append("text")
+svg.append("text")
   .attr("id", "legendText")
   .attr("x", spacing)
   .attr("y", whiteHeight + offset)
@@ -176,14 +170,13 @@ legend.append("text")
   .style("fill", "black")
   .style("font-size", "14");
 
-legend.append("text")
+svg.append("text")
   .attr("id", "legendText")
   .attr("x", spacing)
   .attr("y", redHeight+offset)
   .text("2017")
   .style("fill", "black")
   .style("font-size", "14");
-
 
 //end handmade legend stuff
 
