@@ -15,11 +15,15 @@
     .attr("height", height)
     .style("background-color", "#F5F5F5");
 
-    // // Color picker
-    // function colorPicker(d){
-    //     if (d.year == "1937") { return "#000000"}
-    //     else {return "#cc0000"};
-    // };
+    // Color picker
+    function colorPicker(d){
+        console.log(d[0].year);
+
+        if (d[0].year == "1937") { return "#000000"}
+        else {return "#cc0000"};
+
+    };
+
 
     var lineData = d3.nest()
         .key(function(d){
@@ -55,7 +59,7 @@ var xScale = d3.scaleLinear()
 .range([margin.left, width-margin.right]);
 
 var yScale = d3.scaleLinear()
-.domain([0, maxPieces])
+.domain([0, 300])
 .range([height-margin.bottom, margin.top]);
 
  // path generator
@@ -64,6 +68,10 @@ var yScale = d3.scaleLinear()
 .y(function(d) { return yScale(d.totalPieces); })
 // .curve(d3.curveLinear)
 .curve(d3.curveMonotoneX);
+
+//Create circle elements with LineData so that tooltip knows where to pop up.
+//http://www.dave-landry.com/classes/artg5430-spring2020/lectures/03_12_code.html
+// Focus on how it calculates the x + y (keep it simple!)
 
 // Tooltip info
 // function tooltip(d){
@@ -82,33 +90,37 @@ var yScale = d3.scaleLinear()
 //    };
 
 // Append Paths and Lines
-lineData.forEach(function(d){
-     svg.append("path")
-    .data([data1937])
-    .attr("class", "line")
-    .attr("d", line)
-    .style("fill", "none")
-    .style("stroke-width", "3")
-    .style("stroke", "black");
-    // .on("mouseover", tooltip())
-    // .on("mouseout", tooltipOut());
-});
+// lineData.forEach(function(d){
+//      svg.append("path")
+//     .data([data1937])
+//     .attr("class", "line")
+//     .attr("d", line)
+//     .style("fill", "none")
+//     .style("stroke-width", "3")
+//     .style("stroke", "black");
+//     // .on("mouseover", tooltip())
+//     // .on("mouseout", tooltipOut());
+// });
 
-lineData.forEach( function(d){
-        svg.append("path")
-        .data([data2017])
+svg.selectAll(".line")
+        .data([data1937, data2017])
+        .enter()
+        .append("path")
         .attr("class", "line")
         .attr("d", line)
         .style("fill", "none")
         .style("stroke-width", "3")
-        .style("stroke", "#cc0000");
-    });
+        .style("stroke", colorPicker);
+
+function month(d){
+    return d3.timeFormat("%b")(new Date((d+1) + "/01/2017"))
+};
 
 // axes
 var xAxis = svg.append("g")
     .attr("class", "axis")
     .attr("transform", `translate(0, ${height-margin.bottom})`)
-    .call(d3.axisBottom().scale(xScale)); //.tickFormat(d3.timeFormat("%b")
+    .call(d3.axisBottom().scale(xScale).tickFormat(month));
 
 var yAxis = svg.append("g")
     .attr("class", "axis")
