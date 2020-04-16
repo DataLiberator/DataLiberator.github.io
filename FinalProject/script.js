@@ -26,6 +26,12 @@
         else {return "#cc0000"};
     };
 
+    // Color picker for dots, beccause they're weird and different
+    function dotColorPicker(d){
+        if (d.year == "1937") { return "#000000"}
+        else {return "#cc0000"};
+    };
+
     // Format months from numbers to shortened month for X-axis
     function month(d){
         return d3.timeFormat("%b")(new Date((d+1) + "/01/2017"))
@@ -89,12 +95,11 @@
             .style("stroke-width", "3")
             .style("stroke", colorPicker);
 
-    //Gotta add some data point dots to chart (inspired by: https://bl.ocks.org/wnghdcjfe/6377d75c963e8f841609a7bf6d3d0c74)
-    var dot = svg.selectAll(".dot")
+    //Gotta set up the bones for some data point dots to chart (inspired by: https://bl.ocks.org/wnghdcjfe/6377d75c963e8f841609a7bf6d3d0c74)
+    var dot = svg.selectAll("dot")
                     .data(lineData)
                     .enter().append("circle")
-                    .attr("r", 5)
-                    .style("fill", colorPicker);
+                    .attr("r", 5);
 
     // Let's set up for a tooltip while we're at it:
     var div = d3.select("body").append("div")   
@@ -108,6 +113,7 @@
     .attr("cy", function (d) {
         return yScale(d.totalPieces);
     })
+    .style("fill", dotColorPicker)
     .on("mouseover", function(d) { 
         div.transition()        
             .duration(100)      
