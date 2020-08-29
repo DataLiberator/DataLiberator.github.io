@@ -19,12 +19,13 @@ body {
  .text {
   position:absolute;
   font-family: "Courier New", Courier, monospace;
-  background-color:#f4eee1;
-  outline:2px solid #8B8589;
+  background-color:#ffff;
+  outline:3px solid #0B4DA2;
   color:black;
   margin-top:5%;
   margin-bottom:5%;
-  margin-left: 10%;
+  margin-left: 20%;
+  margin-right:20%;
   width:60%;
   height:85%;
   z-index:3;
@@ -35,7 +36,8 @@ body {
   color:black;
   margin-top:5%;
   margin-bottom:7%;
-  margin-left: 12%;
+  margin-left: 22%;
+  margin-right:22%;
   width:55%;
   height:70%;
   z-index:4;
